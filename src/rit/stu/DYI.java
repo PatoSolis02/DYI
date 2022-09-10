@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class DYI {
 
-    private Scanner prefix = new java.util.Scanner(System.in);
+    private static Scanner prefix = new java.util.Scanner(System.in);
 
     public DYI(){
     }
@@ -25,11 +25,11 @@ public class DYI {
             default -> new IntExpression(Integer.parseInt(tok));
         };
     }
-    public static void main(String[] args) {
-        DYI expression = new DYI();
+
+    public static void processLoop(){
         System.out.println("Derp Your Interpreter!");
         System.out.print(">");
-        String userInput = expression.prefix.nextLine();
+        String userInput = prefix.nextLine();
         while(!userInput.equals("quit")) {
             String[] str = userInput.split(" ");
             ArrayList<String> expArrayEval = new ArrayList<>(Arrays.asList(str));
@@ -37,8 +37,12 @@ public class DYI {
             System.out.println("Emit: " + parse(expArrayEmit).emit());
             System.out.println("Evaluate: " + parse(expArrayEval).evaluate());
             System.out.print(">");
-            userInput = expression.prefix.nextLine();
+            userInput = prefix.nextLine();
         }
         System.out.println("Goodbye!");
+    }
+
+    public static void main(String[] args) {
+        processLoop();
     }
 }
