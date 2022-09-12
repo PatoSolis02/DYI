@@ -9,12 +9,10 @@ import java.util.Scanner;
 
 public class DYI {
 
-    private static Scanner prefix = new java.util.Scanner(System.in);
-
     public DYI(){
     }
 
-    public static Expression parse(ArrayList<String> tokens){
+    public Expression parse(ArrayList<String> tokens){
         var tok = tokens.remove(0);
         return switch (tok) {
             case "+" -> new AddExpression(parse(tokens), parse(tokens));
@@ -26,16 +24,17 @@ public class DYI {
         };
     }
 
-    public static void processLoop(){
+    public void processLoop(){
         System.out.println("Derp Your Interpreter!");
         System.out.print(">");
+        Scanner prefix = new Scanner(System.in);
         String userInput = prefix.nextLine();
         while(!userInput.equals("quit")) {
             String[] str = userInput.split(" ");
-            ArrayList<String> expArrayEval = new ArrayList<>(Arrays.asList(str));
-            ArrayList<String> expArrayEmit = new ArrayList<>(expArrayEval);
-            System.out.println("Emit: " + parse(expArrayEmit).emit());
-            System.out.println("Evaluate: " + parse(expArrayEval).evaluate());
+            ArrayList<String> expArray = new ArrayList<>(Arrays.asList(str));
+            Expression parsedArray = parse(expArray);
+            System.out.println("Emit: " + parsedArray.emit());
+            System.out.println("Evaluate: " + parsedArray.evaluate());
             System.out.print(">");
             userInput = prefix.nextLine();
         }
@@ -43,6 +42,6 @@ public class DYI {
     }
 
     public static void main(String[] args) {
-        processLoop();
+        new DYI().processLoop();
     }
 }
